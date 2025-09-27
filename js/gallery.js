@@ -1,16 +1,3 @@
-// const categoriesList = document.querySelector("#categories");
-// const categoryItems = document.querySelectorAll(".item");
-
-// console.log(`Number of categories: ${categoryItems.length}`);
-
-// categoryItems.forEach(item => {
-//   const categoryTitle = item.querySelector("h2").textContent;
-//   const elementsCount = item.querySelectorAll("li").length;
-
-//   console.log(`Category: ${categoryTitle}`);
-//   console.log(`Elements: ${elementsCount}`);
-// });
-
 const images = [
   {
     preview:
@@ -83,14 +70,14 @@ gallery.insertAdjacentHTML("beforeend", galleryList(images));
 gallery.addEventListener("click", handlerClick);
 
 function galleryList(arr) {
-  return arr.map((galler) => `
+  return arr.map(({ preview, original, description }) => `
     <li class="gallery-item">
-        <a class="gallery-link" href="${galler.original}">
+        <a class="gallery-link" href="${original}">
           <img
             class="gallery-image"
-            src="${galler.preview}"
-            data-source="${galler.original}"
-            alt="${galler.description}"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
           />
         </a>
     </li>
@@ -102,9 +89,18 @@ function handlerClick(event) {
   const target = event.target;
   if (!target.classList.contains("gallery-image")) return;
   const largeImageURL = target.dataset.source;
-  console.log("Посилання на велике зображення:", largeImageURL);
-  
+  const altText = target.alt;
+  // console.log("Посилання на велике зображення:", largeImageURL);
+
+  const instance = basicLightbox.create(`
+    <div class="modal">
+        <img src="${largeImageURL}" alt="${altText}"/>
+    </div>
+`)
+instance.show()
 }
+
+
 
 // console.log(gallery);
 
