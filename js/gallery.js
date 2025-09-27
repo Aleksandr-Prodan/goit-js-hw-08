@@ -101,6 +101,3 @@ instance.show()
 }
 
 
-
-// console.log(gallery);
-
